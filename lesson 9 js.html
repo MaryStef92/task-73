@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        button {width: 150px;
+            height: 30px;
+        }
+        .getData {
+            position: relative;
+                left: 30%;
+                top: 50px;
+                width: 40%;
+                height: 200px;
+                background-color: rgba(227, 214, 197, 0.664);
+                padding-top: 5px;
+                padding-left: 10px;
+                padding-bottom: 10px;
+                font-size: 16px;
+                margin-top: 5px;
+                text-align: left;
+        }
+        .userPhoto {
+            position: absolute;
+                top: 0;
+                right: 5%;
+                width: 24%;
+                height: 70px;
+                background-color: rgb(169, 217, 217);
+                padding-top: 5px;
+                padding-left: 5px;
+                padding-bottom: 10px;
+                margin-top: 15px;
+                text-align: left;
+        }
+
+        label {
+                display: block;
+                margin: 8px auto ;
+            }
+
+    </style>
+</head>
+<body>
+    <h2>Login Form</h2>
+    <input id="name" type="text"></input>
+    <input id="idInput" type="text"></input>
+    <br><br>
+    <button  onclick="login()">Login</button>
+
+
+    <form action="" class="getData">
+        <label> Name </label>
+            <input type="text" id="Name" style="width: 150px;">
+            <label> Sername </label>
+            <input type="text" id="Sername" style="width: 150px;">
+            <label> Mail </label>
+            <input type="text" id="Mail" style="width: 150px;">
+
+            <div class="userPhoto">
+                <img src="" id="foto" class="imgsrc" style="width:70px;height: 80px;">
+            </div>
+
+            <div>
+                <input type="submit" id="submitButton" style="display : none;">
+            </div>
+    </form>
+
+
+    <script>
+   async function login() { 
+    let inputId = document.getElementById("idInput").value;
+    let url = "https://reqres.in/api/users/" + inputId;
+    let response = await fetch(url);
+    let userLogo = await response.json();  
+   //console.log(userLogo);
+
+    var enterName = document.getElementById("name").value;
+    //console.log(userLogo.data.first_name);
+  
+
+  if (enterName === userLogo.data.first_name) {
+    alert("You're login to system");
+  
+    document.getElementById("Name").value = userLogo.data.first_name;
+    document.getElementById("Sername").value = userLogo.data.last_name;
+    document.getElementById("Mail").value = userLogo.data.email;
+    document.getElementById("foto").src = userLogo.data.avatar;
+}
+    else {
+        alert("It's not correct data, try again");
+        document.getElementById("Name").value = "";
+        document.getElementById("Sername").value = "";
+        document.getElementById("Mail").value = "";
+        document.getElementById("foto").src = "";
+    }
+ 
+}
+
+
+
+
+
+     
+
+    </script>
+</body>
+</html>
